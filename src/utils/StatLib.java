@@ -3,13 +3,12 @@ package utils;
 
 public class StatLib {
 
-    // simple average
     public static float avg(float[] x){
         float sum =0;
-        for(int i=0;i<x.length;i++)
-            sum+= x[i];
+        for(int i=0; i < x.length; i++)
+            sum += x[i];
 
-        return (sum/x.length);
+        return (float)(sum/x.length);
     }
 
     // returns the variance of X
@@ -25,11 +24,11 @@ public class StatLib {
 
     // returns the covariance of X and Y
     public static float cov(float[] x, float[] y){
-        float meanX= avg(x);
-        float meanY = avg(y);
-        float tmp =0;
-        for(int i=0;i<x.length;i++)
-            tmp+= (x[i]-meanX)*(y[i]-meanY);
+        float mean_x= avg(x);
+        float mean_y = avg(y);
+        float tmp = 0;
+        for(int i=0; i < x.length; i++)
+            tmp += (x[i]-mean_x)*(y[i]-mean_y);
 
         return tmp/x.length;
     }
