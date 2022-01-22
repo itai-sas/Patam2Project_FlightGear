@@ -1,6 +1,6 @@
 package model;
 
-import other.*;
+import utils.*;
 
 import java.util.*;
 

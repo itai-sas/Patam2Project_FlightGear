@@ -1,6 +1,6 @@
 package model;
 import javafx.beans.property.IntegerProperty;
-import other.Properties;
+import utils.Properties;
 
 public interface Model
 {

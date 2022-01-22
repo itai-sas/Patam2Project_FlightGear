@@ -1,6 +1,7 @@
 package model;
+
 import javafx.beans.property.IntegerProperty;
-import other.Properties;
+
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;

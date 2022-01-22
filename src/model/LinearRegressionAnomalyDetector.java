@@ -1,9 +1,9 @@
 package model;
 
-import other.CorrelatedFeatures;
-import other.Line;
-import other.Point;
-import other.StatLib;
+import utils.CorrelatedFeatures;
+import utils.Line;
+import utils.Point;
+import utils.StatLib;
 
 import java.util.ArrayList;
 import java.util.HashMap;
