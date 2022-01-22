@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
-<StackPane prefHeight="428.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.display.DisplayController">
+<StackPane prefHeight="428.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.viewing.ViewController">
    <children>
       <SplitPane dividerPositions="0.30930397727272724" prefHeight="160.0" prefWidth="200.0" StackPane.alignment="CENTER">
         <items>

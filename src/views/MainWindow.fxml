@@ -12,10 +12,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<?import view.clocks.Clocks?>
-<?import view.user.User?>
-<?import view.viewing.View?>
-<?import view.joystick.Joystick?>
+<?import views.clocks.Clocks?>
+<?import views.user.User?>
+<?import views.viewing.View?>
+<?import views.joystick.Joystick?>
 
 <BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainWindowController">
    <top>
