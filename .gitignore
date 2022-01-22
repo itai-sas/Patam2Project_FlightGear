@@ -1,4 +1,7 @@
-/module-info.class
-/models/
-/views/
-/viewmodels/
+# Project exclude paths
+/out/
+/bin/
+*.classpath
+*.project
+*.iml
+/.idea/
