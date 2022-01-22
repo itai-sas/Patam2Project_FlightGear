@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
+
 public class LinearRegPainter implements Painter
 {
     LineChart myChart;
