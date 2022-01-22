@@ -13,7 +13,9 @@ import utils.Calculate;
 import utils.Circle;
 import utils.CorrelatedFeatures;
 import utils.Line;
-import view.ApplicationStatus;
+/*
+import views.ApplicationStatus;
+*/
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

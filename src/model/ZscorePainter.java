@@ -6,7 +6,7 @@ import javafx.scene.chart.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import utils.Calculate;
-import views.ApplicationStatus;
+/*import views.ApplicationStatus;*/
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

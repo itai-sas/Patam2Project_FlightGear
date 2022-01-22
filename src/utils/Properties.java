@@ -4,20 +4,24 @@ import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.*;
 
-public class Properties implements Serializable {
+public class Properties implements Serializable
+{
     private String ip;
     private Integer port;
     private Integer hertzRate;
     private HashMap<String,FeatureProperties> map;
     private String regularFlightCSV;
 
-    public Properties() {
+    public Properties()
+    {
         map = new HashMap<>();
     }
 
-    public void createXML(){
+    public void createXML()
+    {
         XMLEncoder e = null;
-        try {
+        try
+        {
             e = new XMLEncoder(
                     new BufferedOutputStream(
                             new FileOutputStream("./resources/properties.xml")));
@@ -30,37 +34,46 @@ public class Properties implements Serializable {
 
     }
 
-    public String getIp() {
+    public String getIp()
+    {
         return ip;
     }
 
-    public void setIp(String ip) {
+    public void setIp(String ip)
+    {
         this.ip = ip;
     }
 
-    public Integer getPort() {
+    public Integer getPort()
+    {
         return port;
     }
 
-    public void setPort(Integer port) {
+    public void setPort(Integer port)
+    {
         this.port = port;
     }
 
-    public Integer getHertzRate() { return hertzRate; }
+    public Integer getHertzRate()
+    { return hertzRate; }
 
-    public void setHertzRate(Integer hertzRate) {
+    public void setHertzRate(Integer hertzRate)
+    {
         this.hertzRate = hertzRate;
     }
 
-    public HashMap<String, FeatureProperties> getMap() {
+    public HashMap<String, FeatureProperties> getMap()
+    {
         return map;
     }
 
-    public void setMap(HashMap<String, FeatureProperties> map) {
+    public void setMap(HashMap<String, FeatureProperties> map)
+    {
         this.map = map;
     }
 
-    public String getRegularFlightCSV() { return regularFlightCSV; }
+    public String getRegularFlightCSV()
+    { return regularFlightCSV; }
 
     public void setRegularFlightCSV(String regularFlightCSV) { this.regularFlightCSV = regularFlightCSV; }
 
@@ -87,13 +100,13 @@ public class Properties implements Serializable {
         map.put("rudder", new Properties.FeatureProperties("rudder",2, (float) -1, 1F));
     }
 
-    public boolean isValidProperties(){
+    public boolean isValidProperties()
+    {
         if(ip==null||port==null||hertzRate==null||map==null)
             return false;
 
         if(!validateIp(ip)||port<1024||port>65535||hertzRate<1)
             return false;
-
         ArrayList<FeatureProperties> fp = new ArrayList<>();
         for(Map.Entry<String,FeatureProperties> e : map.entrySet())
             fp.add(e.getValue());
@@ -102,7 +115,8 @@ public class Properties implements Serializable {
         return true;
     }
 
-    private boolean isValidRegFlightCSV() {
+    private boolean isValidRegFlightCSV()
+    {
         HashSet<String> set = new HashSet<>();
 
         for(Properties.FeatureProperties fp : map.values()){
@@ -110,9 +124,11 @@ public class Properties implements Serializable {
         }
 
         Scanner scanner = null;
-        try {
+        try
+        {
             scanner = new Scanner(new BufferedReader(new FileReader(regularFlightCSV)));
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e)
+        {
             e.printStackTrace();
         }
 
@@ -127,7 +143,8 @@ public class Properties implements Serializable {
         if(set.size()!=0)
             return false;
 
-        while(scanner.hasNext()){
+        while(scanner.hasNext())
+        {
             features = scanner.next().split(",");
             for(String f : features){
                 try{
@@ -143,12 +160,14 @@ public class Properties implements Serializable {
         return true;
     }
 
-    private static boolean validateIp(final String ip) {
+    private static boolean validateIp(final String ip)
+    {
         String Pattern = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$";
         return ip.matches(Pattern);
     }
 
-    public static class FeatureProperties implements Serializable{
+    public static class FeatureProperties implements Serializable
+    {
         String colChosenName;
         Integer index;
         Float minVal, maxVal;
@@ -162,29 +181,36 @@ public class Properties implements Serializable {
             this.maxVal = maxVal;
         }
 
-        public Integer getIndex() { return index; }
+        public Integer getIndex()
+        { return index; }
 
         public void setIndex(Integer index) { this.index = index; }
 
-        public Float getMinVal() {
+        public Float getMinVal()
+        {
             return minVal;
         }
 
-        public void setMinVal(Float minVal) {
+        public void setMinVal(Float minVal)
+        {
             this.minVal = minVal;
         }
 
-        public Float getMaxVal() {
+        public Float getMaxVal()
+        {
             return maxVal;
         }
 
-        public void setMaxVal(Float maxVal) {
+        public void setMaxVal(Float maxVal)
+        {
             this.maxVal = maxVal;
         }
 
-        public String getColChosenName() { return colChosenName; }
+        public String getColChosenName()
+        { return colChosenName; }
 
-        public void setColChosenName(String colChosenName) { this.colChosenName = colChosenName; }
+        public void setColChosenName(String colChosenName)
+        { this.colChosenName = colChosenName; }
 
     }
 }

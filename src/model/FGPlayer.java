@@ -1,6 +1,6 @@
 package model;
 
-import other.Properties;
+import utils.Properties;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;

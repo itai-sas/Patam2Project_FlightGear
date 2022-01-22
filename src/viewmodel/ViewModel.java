@@ -6,14 +6,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.FGModel;
 import model.Model;
-import utils.Calculate;
-import utils.Properties;
 import model.Painter;
 import model.TimeSeries;
+import utils.Calculate;
+import utils.Properties;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ViewModel extends Observable implements Observer {
+public class ViewModel extends Observable implements Observer
+{
 
     Model m;
     TimeSeries anomalyTimeSeries,normalTimeSeries;
@@ -24,7 +28,8 @@ public class ViewModel extends Observable implements Observer {
     public final Runnable onPlay,onStop,onPause,onFastForward, onSlowForward,onToStart,onToEnd;
 
 
-    public ViewModel(Model m) {
+    public ViewModel(Model m)
+    {
         this.m = m;
         displayVariables = new HashMap<>();
         csvPath= new SimpleStringProperty();
@@ -39,7 +44,8 @@ public class ViewModel extends Observable implements Observer {
 
         csvPath.addListener((o,ov,nv)->{
             String res = this.m.uploadCsv(nv);
-            if (res.equals("LoadedCSVSuccessfully")) {
+            if (res.equals("LoadedCSVSuccessfully"))
+            {
                 anomalyTimeSeries = new TimeSeries(nv);
                 this.m.setAnomalyTimeSeries(anomalyTimeSeries);
             }
@@ -47,7 +53,8 @@ public class ViewModel extends Observable implements Observer {
             notifyObservers(res);
         });
 
-        timeStep.addListener((o,ov,nv)->{
+        timeStep.addListener((o,ov,nv)->
+        {
             ArrayList<Float> row = anomalyTimeSeries.getRow((Integer) nv);
             Platform.runLater(() -> {
                 displayVariables.get("aileron").set(row.get(appProp.getMap().get("aileron").getIndex()));
@@ -76,7 +83,8 @@ public class ViewModel extends Observable implements Observer {
         onToEnd = ()->m.skipToEnd();
 
     }
-    public ObservableList<Float> getListItem(String feature, int oldVal,int newVal){
+    public ObservableList<Float> getListItem(String feature, int oldVal,int newVal)
+    {
         ObservableList<Float> listItem = FXCollections.observableArrayList(anomalyTimeSeries.getFeatureData(feature).subList(oldVal,newVal));
         return listItem;
     }
@@ -87,11 +95,13 @@ public class ViewModel extends Observable implements Observer {
         return listItem;
     }
 
-    public String getCorrelatedFeature(String feature){
+    public String getCorrelatedFeature(String feature)
+    {
         return normalTimeSeries.getCorMap().get(feature).getCorFeature();
     }
 
-    public String updateFlightTime() {
+    public String updateFlightTime()
+    {
         int timeInSeconds = timeStep.get()/appProp.getHertzRate();
         return Calculate.getTimeString(timeInSeconds);
     }
@@ -111,80 +121,99 @@ public class ViewModel extends Observable implements Observer {
             displayVariables.put(feature, new SimpleDoubleProperty());
         }
     }
-    public void setAppProperties(String path){
+    public void setAppProperties(String path)
+    {
         m.setProperties(path);
     }
 
-    public void setAlgorithm(String path){
+    public void setAlgorithm(String path)
+    {
         m.setAnomalyDetector(path);
     }
 
-    public ArrayList<String> getFeatures() {
+    public ArrayList<String> getFeatures()
+    {
         return anomalyTimeSeries.getFeatures();
     }
 
-    public int getTsSize(){
+    public int getTsSize()
+    {
         return anomalyTimeSeries.getRowSize()-1;
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable o, Object arg)
+    {
         if(o.getClass().equals(FGModel.class)){
 
-            switch (arg.toString()) {
-                case "FileNotFound":{
+            switch (arg.toString())
+            {
+                case "FileNotFound":
+                {
                     setChanged();
                     notifyObservers("FileNotFound");
                     break;
                 }
-                case "IllegalValues": {
+                case "IllegalValues":
+                {
                     setChanged();
                     notifyObservers("IllegalValues");
                     break;
                 }
-                case "XMLFormatDamaged": {
+                case "XMLFormatDamaged":
+                {
                     setChanged();
                     notifyObservers("XMLFormatDamaged");
                     break;
                 }
-                case "LoadedSuccessfully": {
+                case "LoadedSuccessfully":
+                {
                     setChanged();
                     notifyObservers("LoadedSuccessfully");
                     break;
                 }
-                case "FailedToLoadClass": {
+                case "FailedToLoadClass":
+                {
                     setChanged();
                     notifyObservers("FailedToLoadClass");
                     break;
                 }
-                case "LoadedClassSuccessfully": {
+                case "LoadedClassSuccessfully":
+                {
                     setChanged();
                     notifyObservers("LoadedClassSuccessfully");
                     break;
                 }
-                case "SLOWEST":{
+                case "SLOWEST":
+                {
                     playSpeed.set("0.25");
                     break;
                 }
-                case "SLOWER":{
+                case "SLOWER":
+                {
                     playSpeed.set("0.5");
                     break;
                 }
-                case "NORMAL":{
+                case "NORMAL":
+                {
                     playSpeed.set("1.0");
                     break;
                 }
-                case "FASTER":{
+                case "FASTER":
+                {
                     playSpeed.set("2.0");
                     break;
                 }
-                case "FASTEST":{
+                case "FASTEST":
+                {
                     playSpeed.set("4.0");
                     break;
                 }
             }
 
-            if(arg.getClass().equals(Properties.class)){
+            if(arg.getClass().equals(Properties.class))
+            {
+
                 appProp = (Properties) arg;
                 normalTimeSeries = new TimeSeries(appProp.getRegularFlightCSV());
                 m.setRegularTimeSeries(normalTimeSeries);
@@ -194,10 +223,12 @@ public class ViewModel extends Observable implements Observer {
         }
     }
 
-    public Painter getPainter() {
+    public Painter getPainter()
+    {
         return m.getPainter();
     }
-    public void close() {
+    public void close()
+    {
         m.close();
     }
 

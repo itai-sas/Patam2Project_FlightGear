@@ -2,7 +2,8 @@ package utils;
 
 import java.util.Collection;
 
-public class Circle {
+public class Circle
+{
 
 	public final float radius; //Circle's radius and center point
 	public Point p;
@@ -12,16 +13,19 @@ public class Circle {
 		this.radius = radius;
 	}
 
-	public Point getPoint() { //Returns Circel's center point
+	public Point getPoint()
+	{
 		return this.p;
 	}
 
-	public float getRadius() { //Returns Circel's radius
+	public float getRadius()
+	{ /
 		return this.radius;
 	}
 
 	@Override
-	public String toString() { ////toString function
+	public String toString()
+	{
 		return "Circle [radius=" + radius + ", p=" + p + "]";
 	}
 	

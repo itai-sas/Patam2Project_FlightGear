@@ -1,6 +1,7 @@
 package model;
 
 import javafx.beans.property.IntegerProperty;
+import utils.Properties;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -10,8 +11,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
 
-public class FGModel extends Observable implements Model
-{
+public class FGModel extends Observable implements Model{
+
     Properties appProperties;
     IntegerProperty timeStep;
     TimeSeries anomalyFlight,regFlight;
@@ -21,8 +22,7 @@ public class FGModel extends Observable implements Model
     int hertzRate;
     playSpeed ps;
 
-    public FGModel()
-    {
+    public FGModel() {
         setProperties("./resources/properties.xml");
         fgp = new FGPlayer(appProperties);
         hertzRate= appProperties.getHertzRate();
@@ -30,50 +30,43 @@ public class FGModel extends Observable implements Model
     }
 
     @Override
-    public void setRegularTimeSeries(TimeSeries ts)
-    {
+    public void setRegularTimeSeries(TimeSeries ts) {
         this.regFlight = ts;
     }
 
     @Override
-    public void setAnomalyTimeSeries(TimeSeries ts)
-    {
+    public void setAnomalyTimeSeries(TimeSeries ts) {
         this.anomalyFlight = ts;
     }
 
     @Override
-    public void setProperties(String path)
-    {
+    public void setProperties(String path) {
         XMLDecoder d = null;
         try {
-            d = new XMLDecoder
-                    (new BufferedInputStream(new FileInputStream(path)));
-        }
-        catch (FileNotFoundException e)
-        {
-           e.printStackTrace();
+            d = new XMLDecoder(
+                    new BufferedInputStream(
+                            new FileInputStream(path)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
             setChanged();
-			notifyObservers("FileNotFound");
+            notifyObservers("FileNotFound");
             regFlight = null;
         }
-        try
-        {
+        try {
             Properties tempProperties =(Properties) d.readObject();
             if(!tempProperties.isValidProperties()){
                 setChanged();
                 notifyObservers("IllegalValues");
                 regFlight = null;
             }
-            else
-            {
+            else{
                 appProperties = tempProperties;
                 setChanged();
-				notifyObservers("LoadedSuccessfully");
+                notifyObservers("LoadedSuccessfully");
                 notifyObservers(appProperties);
             }
         }
-        catch(Exception e)
-        {
+        catch(Exception e){
             setChanged();
             notifyObservers("XMLFormatDamaged");
             regFlight = null;
@@ -82,11 +75,12 @@ public class FGModel extends Observable implements Model
 
         XMLEncoder e = null;
         try {
-            e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("./resources/properties.xml")));
+            e = new XMLEncoder(
+                    new BufferedOutputStream(
+                            new FileOutputStream("./resources/properties.xml")));
             e.writeObject(appProperties);
 
-        } catch (FileNotFoundException fileNotFoundException)
-        {
+        } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         }
         e.close();
@@ -94,8 +88,7 @@ public class FGModel extends Observable implements Model
 
 
     @Override
-    public void setTimeStep(IntegerProperty timeStep)
-    {
+    public void setTimeStep(IntegerProperty timeStep) {
         this.timeStep = timeStep;
         timeStep.addListener((o,ov,nv)->{
             fgp.send(anomalyFlight.getRow(nv.intValue()));
@@ -103,83 +96,75 @@ public class FGModel extends Observable implements Model
     }
 
     @Override
-    public <V> Properties getProperties( {return appProperties;}
+    public <V> Properties getProperties() {
+        return appProperties;
+    }
 
-	@Override
-	public void setAnomalyDetector(String path)
-    {
-		Object detectAlgo = null;
-		String className;
-		File file = new File(path);
-        if (file == null)
-        {
+    @Override
+    public void setAnomalyDetector(String path) {
+        Object detectAlgo = null;
+        String className;
+        File file = new File(path);
+        if (file == null) {
             setChanged();
             notifyObservers("FailedToLoadClass");
-		}
+        }
 
+        // load class directory
         className = "model" + "." + file.getName().substring(0,file.getName().indexOf("."));
-		URL[] url = new URL[1];
-		try {
-			url[0] = new URL("file://" + file.getParent() + "/");
-		}
-        catch (MalformedURLException e)
-        {
-			e.printStackTrace();
-		}
-		URLClassLoader urlClassLoader = new URLClassLoader(url);
-		Class<?> c;
-		try
-        {
-			c = urlClassLoader.loadClass(className);
-			try
-            {
-				detectAlgo = c.newInstance();
-			}
-            catch (InstantiationException e)
-            {
+        URL[] url = new URL[1];
+        // change this path to your local one
+        try {
+            url[0] = new URL("file://" + file.getParent() + "/");
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        URLClassLoader urlClassLoader = new URLClassLoader(url);
+        Class<?> c;
+        try {
+            c = urlClassLoader.loadClass(className);
+            try {
+                detectAlgo = c.newInstance();
+            } catch (InstantiationException e) {
                 setChanged();
                 notifyObservers("FailedToLoadClass");
                 return;
-			}
-            catch (IllegalAccessException e)
-            {
+            } catch (IllegalAccessException e) {
                 setChanged();
                 notifyObservers("FailedToLoadClass");
                 return;
-			}
-		} catch (ClassNotFoundException e)
-        {
+            }
+        } catch (ClassNotFoundException e) {
             setChanged();
             notifyObservers("FailedToLoadClass");
             return;
-		}
-		if (detectAlgo instanceof LinearRegressionAnomalyDetector)
-        {
-		    anomalyDetector = (LinearRegressionAnomalyDetector) detectAlgo;
-			((LinearRegressionAnomalyDetector) detectAlgo).learnNormal(regFlight);
-			((LinearRegressionAnomalyDetector) detectAlgo).detect(anomalyFlight);
-		}
+        }
+        // create an Algorithms instance
+        if (detectAlgo instanceof LinearRegressionAnomalyDetector) {
+            anomalyDetector = (LinearRegressionAnomalyDetector) detectAlgo;
+            ((LinearRegressionAnomalyDetector) detectAlgo).learnNormal(regFlight);
+            ((LinearRegressionAnomalyDetector) detectAlgo).detect(anomalyFlight);
+        }
 
-		else if (detectAlgo instanceof HybridAnomalyDetector)
-        {
+        else if (detectAlgo instanceof HybridAnomalyDetector) {
             anomalyDetector = (HybridAnomalyDetector) detectAlgo;
-			((HybridAnomalyDetector) detectAlgo).learnNormal(regFlight);
-			((HybridAnomalyDetector) detectAlgo).detect(anomalyFlight);
-		}
+            ((HybridAnomalyDetector) detectAlgo).learnNormal(regFlight);
+            ((HybridAnomalyDetector) detectAlgo).detect(anomalyFlight);
+        }
 
-		else if (detectAlgo instanceof ZscoreAnomalyDetector)
-        {
+        else if (detectAlgo instanceof ZscoreAnomalyDetector) {
             anomalyDetector = (ZscoreAnomalyDetector) detectAlgo;
-			((ZscoreAnomalyDetector) detectAlgo).learnNormal(regFlight);
-			((ZscoreAnomalyDetector) detectAlgo).detect(anomalyFlight);
-		}
+            ((ZscoreAnomalyDetector) detectAlgo).learnNormal(regFlight);
+            ((ZscoreAnomalyDetector) detectAlgo).detect(anomalyFlight);
+        }
+
         setChanged();
         notifyObservers("LoadedClassSuccessfully");
-	}
+    }
 
     @Override
-    public void close()
-    {
+    public void close() {
         if(t!=null){
             t.cancel();
             fgp.close();
@@ -187,29 +172,22 @@ public class FGModel extends Observable implements Model
     }
 
     @Override
-    public Painter getPainter()
-    {
+    public Painter getPainter() {
         return anomalyDetector.getPainter();
     }
 
     @Override
-    public void play()
-    {
-        if(t==null)
-        {
+    public void play() {
+        if(t==null){
             t= new Timer();
             setPlaySpeed();
-            t.scheduleAtFixedRate(new TimerTask()
-            {
+            t.scheduleAtFixedRate(new TimerTask() {
                 @Override
-                public void run()
-                {
-                    if(timeStep.get()< anomalyFlight.getRowSize()-1)
-                    {
+                public void run() {
+                    if(timeStep.get()< anomalyFlight.getRowSize()-1) {
                         timeStep.set(timeStep.get() + 1);
                     }
-                    else if(timeStep.get()== anomalyFlight.getRowSize()-1)
-                    {
+                    else if(timeStep.get()== anomalyFlight.getRowSize()-1){
                         t.cancel();
                         t=null;
                     }
@@ -219,54 +197,45 @@ public class FGModel extends Observable implements Model
     }
 
     @Override
-    public void skipToStart()
-    {
-       stop();
-       play();
+    public void skipToStart() {
+        stop();
+        play();
     }
 
     @Override
-    public void skipToEnd()
-    {
-       if(t!=null)
-       {
-           t.cancel();
-           t=null;
-       }
-       timeStep.set(anomalyFlight.getRowSize()-1);
+    public void skipToEnd() {
+        if(t!=null){
+            t.cancel();
+            t=null;
+        }
+        timeStep.set(anomalyFlight.getRowSize()-1);
     }
 
     @Override
-    public void fastForward()
-    {
+    public void fastForward() {
 
-            if(ps==playSpeed.SLOWEST)
-            {
-                ps=playSpeed.SLOWER;
-                setChanged();
-                notifyObservers(playSpeed.SLOWER);
-            }
-            else if(ps==playSpeed.SLOWER)
-            {
-                ps=playSpeed.NORMAL;
-                setChanged();
-                notifyObservers(playSpeed.NORMAL);
-            }
-            else if(ps==playSpeed.NORMAL)
-            {
-                ps=playSpeed.FASTER;
-                setChanged();
-                notifyObservers(playSpeed.FASTER);
-            }
-            else if(ps==playSpeed.FASTER)
-            {
-                ps=playSpeed.FASTEST;
-                setChanged();
-                notifyObservers(playSpeed.FASTEST);
-            }
+        if(ps==playSpeed.SLOWEST){
+            ps=playSpeed.SLOWER;
+            setChanged();
+            notifyObservers(playSpeed.SLOWER);
+        }
+        else if(ps==playSpeed.SLOWER){
+            ps=playSpeed.NORMAL;
+            setChanged();
+            notifyObservers(playSpeed.NORMAL);
+        }
+        else if(ps==playSpeed.NORMAL){
+            ps=playSpeed.FASTER;
+            setChanged();
+            notifyObservers(playSpeed.FASTER);
+        }
+        else if(ps==playSpeed.FASTER){
+            ps=playSpeed.FASTEST;
+            setChanged();
+            notifyObservers(playSpeed.FASTEST);
+        }
 
-        if(t!=null)
-        {
+        if(t!=null) {
             t.cancel();
             t = null;
             play();
@@ -276,26 +245,26 @@ public class FGModel extends Observable implements Model
 
     @Override
     public void slowForward() {
-            if(ps==playSpeed.SLOWER){
-                ps=playSpeed.SLOWEST;
-                setChanged();
-                notifyObservers(playSpeed.SLOWEST);
-            }
-            else if(ps==playSpeed.NORMAL){
-                ps=playSpeed.SLOWER;
-                setChanged();
-                notifyObservers(playSpeed.SLOWER);
-            }
-            else if(ps==playSpeed.FASTEST){
-                ps=playSpeed.FASTER;
-                setChanged();
-                notifyObservers(playSpeed.FASTER);
-            }
-            else if(ps==playSpeed.FASTER){
-                ps=playSpeed.NORMAL;
-                setChanged();
-                notifyObservers(playSpeed.NORMAL);
-            }
+        if(ps==playSpeed.SLOWER){
+            ps=playSpeed.SLOWEST;
+            setChanged();
+            notifyObservers(playSpeed.SLOWEST);
+        }
+        else if(ps==playSpeed.NORMAL){
+            ps=playSpeed.SLOWER;
+            setChanged();
+            notifyObservers(playSpeed.SLOWER);
+        }
+        else if(ps==playSpeed.FASTEST){
+            ps=playSpeed.FASTER;
+            setChanged();
+            notifyObservers(playSpeed.FASTER);
+        }
+        else if(ps==playSpeed.FASTER){
+            ps=playSpeed.NORMAL;
+            setChanged();
+            notifyObservers(playSpeed.NORMAL);
+        }
 
         if(t!=null) {
             t.cancel();
