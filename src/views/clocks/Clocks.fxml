@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.hansolo.medusa.Gauge?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<StackPane prefHeight="174.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.clocks.ClocksController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <HBox maxWidth="-Infinity" prefHeight="100.0" prefWidth="300.0">
+               <children>
+                  <StackPane prefWidth="150.0">
+                     <children>
+                        <Gauge fx:id="yaw" angleRange="180.0" customTickLabelFontSize="12.0" customTickLabelFontSizeEnabled="true" interactive="true"  majorTickMarkLengthFactor="0.5" majorTickMarkWidthFactor="0.4" maxMeasuredValue="90.0" maxValue="90.0" mediumTickMarkType="DOT" minMeasuredValue="-90.0" minMeasuredValueVisible="true" minValue="-90.0" minorTickMarksVisible="false" prefHeight="87.0" prefWidth="200.0" startAngle="270.0" threshold="45.0" tickLabelsVisible="false" title="YAW" />
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="87.0" prefWidth="280.0">
+                          <children>
+                              <AirCompass fx:id="myAirCompass" layoutX="2.0" layoutY="-1.0" prefHeight="140.0" prefWidth="140.0"/>
+                          </children>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets left="80.0" />
+               </VBox.margin>
+            </HBox>
+
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Gauge fx:id="airspeed" prefHeight="87.0" prefWidth="104.0" skinType="MODERN" threshold="90.0" thresholdVisible="true" title="AIR SPEED" unit="KNOT">
+                           <tickLabelColor>
+                              <Color red="0.6447368264198303" green="0.6447368264198303" blue="0.6447368264198303" />
+                           </tickLabelColor>
+                           <thresholdColor>
+                              <Color red="0.8842105269432068" green="0.02619883045554161" blue="0.02619883045554161" />
+                           </thresholdColor>
+                        </Gauge>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Horizon fx:id="myHorizon" layoutX="2.0" layoutY="-1.0" prefHeight="140.0" prefWidth="140.0"/>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Altimeter fx:id="myAltimeter" layoutY="-1.0" prefHeight="140.0" prefWidth="140.0"/>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

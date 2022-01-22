@@ -19,7 +19,7 @@ public class Circle
 	}
 
 	public float getRadius()
-	{ /
+	{
 		return this.radius;
 	}
 
@@ -35,7 +35,7 @@ public class Circle
     }
 
 
-    public boolean isContained(Collection<Point> ps) { //Checks if few points is in the circle
+    public boolean isContained(Collection<Point> ps) {
         for (Point p : ps) {
             if (!isContained(p))
                 return false;

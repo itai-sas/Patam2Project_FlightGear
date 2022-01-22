@@ -1,0 +1,21 @@
+
+.horizon
+{
+    -outer-frame-color: gray;
+    -frame-width      : 10;
+}
+.horizon .frame
+{
+    -fx-background-radius: 1024;
+    -fx-background-insets: 0, 1, 5, 25;
+    -fx-background-color : rgb(132, 132, 132)
+    linear-gradient(to bottom,
+            rgb(255,255,255) 10%,
+            rgb(81,81,81) 48%,
+            rgb(57,57,57) 48%,
+            rgb(13,13,13) 100%)
+}
+.horizon .background
+{
+    -fx-background-radius: 1024;
+}
