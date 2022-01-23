@@ -17,75 +17,75 @@
 <?import views.viewing.View?>
 <?import views.joystick.Joystick?>
 
-<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainWindowController">
-   <top>
-      <MenuBar prefHeight="26.0" prefWidth="762.0" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MainWindowController">
+    <top>
+        <MenuBar prefHeight="26.0" prefWidth="762.0" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#loadProperties" text="Load Properties" />
+                        <MenuItem fx:id="loadAlgorithm" mnemonicParsing="false" onAction="#loadAlgorithm" text="Load Algorithm" />
+                        <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <right>
+        <SplitPane dividerPositions="0.5" maxHeight="-Infinity" orientation="VERTICAL" prefHeight="448.0" prefWidth="428.0" BorderPane.alignment="CENTER">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#loadProperties" text="Load Properties" />
-                  <MenuItem fx:id="loadAlgorithm" mnemonicParsing="false" onAction="#loadAlgorithm" text="Load Algorithm" />
-                <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+                <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="211.0" prefWidth="160.0">
+                    <children>
+                        <Joystick fx:id="myJoystick" minHeight="0.0" minWidth="0.0" prefHeight="204.0" prefWidth="249.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="211.0" prefWidth="160.0">
+                    <children>
+                        <Clocks fx:id="myClocks" prefHeight="200.0" prefWidth="200" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+                        <!--StackPane prefHeight="228.0" prefWidth="248.8" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" /-->
+                    </children>
+                </AnchorPane>
             </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <right>
-      <SplitPane dividerPositions="0.5" maxHeight="-Infinity" orientation="VERTICAL" prefHeight="448.0" prefWidth="428.0" BorderPane.alignment="CENTER">
-        <items>
-           <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="211.0" prefWidth="160.0">
-               <children>
-                    <Joystick fx:id="myJoystick" minHeight="0.0" minWidth="0.0" prefHeight="204.0" prefWidth="249.0" />
-               </children>
-           </AnchorPane>
-          <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="211.0" prefWidth="160.0">
-               <children>
-                  <Clocks fx:id="myClocks" prefHeight="200.0" prefWidth="200" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
-                  <!--StackPane prefHeight="228.0" prefWidth="248.8" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" /-->
-               </children>
-          </AnchorPane>
-        </items>
-         <BorderPane.margin>
-            <Insets bottom="10.0" right="10.0" top="10.0" />
-         </BorderPane.margin>
-      </SplitPane>
-   </right>
-   <center>
-      <Display fx:id="myDisplay" prefHeight="428.0" prefWidth="585.0" BorderPane.alignment="CENTER" />
-      <!--StackPane maxHeight="-Infinity" prefHeight="448.0" prefWidth="551.0" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding></StackPane-->
-   </center>
-   <bottom>
-      <BorderPane BorderPane.alignment="CENTER">
-         <bottom>
-            <HBox prefHeight="20.0" prefWidth="972.8" BorderPane.alignment="CENTER">
-               <children>
-                  <Label id="label" style="-fx-font-family: Helvetica; -fx-font-size: 12px; -fx-font-weight: bold;" text="Status">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="appStatus" prefHeight="18.0" prefWidth="885.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-         </bottom>
-         <center>
-            <!--AnchorPane prefHeight="78.0" prefWidth="974.0" BorderPane.alignment="CENTER" /-->
-            <Player fx:id="myPlayer" prefHeight="78.0" prefWidth="974.0" BorderPane.alignment="BOTTOM_CENTER"/>
-         </center>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </BorderPane.margin>
-      </BorderPane>
-   </bottom>
+            <BorderPane.margin>
+                <Insets bottom="10.0" right="10.0" top="10.0" />
+            </BorderPane.margin>
+        </SplitPane>
+    </right>
+    <center>
+        <View fx:id="myDisplay" prefHeight="428.0" prefWidth="585.0" BorderPane.alignment="CENTER" />
+        <!--StackPane maxHeight="-Infinity" prefHeight="448.0" prefWidth="551.0" BorderPane.alignment="CENTER">
+           <BorderPane.margin>
+              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+           </BorderPane.margin>
+           <padding>
+              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+           </padding></StackPane-->
+    </center>
+    <bottom>
+        <BorderPane BorderPane.alignment="CENTER">
+            <bottom>
+                <HBox prefHeight="20.0" prefWidth="972.8" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label id="label" style="-fx-font-family: Helvetica; -fx-font-size: 12px; -fx-font-weight: bold;" text="Status">
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </Label>
+                        <Label fx:id="appStatus" prefHeight="18.0" prefWidth="885.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+            </bottom>
+            <center>
+                <!--AnchorPane prefHeight="78.0" prefWidth="974.0" BorderPane.alignment="CENTER" /-->
+                <User fx:id="myPlayer" prefHeight="78.0" prefWidth="974.0" BorderPane.alignment="BOTTOM_CENTER"/>
+            </center>
+            <BorderPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </BorderPane.margin>
+        </BorderPane>
+    </bottom>
 </BorderPane>

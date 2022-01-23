@@ -11,7 +11,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
 
-public class FGModel extends Observable implements Model{
+public class FGModel extends Observable implements Model
+{
 
     Properties appProperties;
     IntegerProperty timeStep;
@@ -23,29 +24,30 @@ public class FGModel extends Observable implements Model{
     playSpeed ps;
 
     public FGModel() {
-        setProperties("./resources/properties.xml");
+        setProperties("./Sources/properties.xml");
         fgp = new FGPlayer(appProperties);
         hertzRate= appProperties.getHertzRate();
         ps = playSpeed.NORMAL;
     }
 
     @Override
-    public void setRegularTimeSeries(TimeSeries ts) {
+    public void setRegularTimeSeries(TimeSeries ts)
+    {
         this.regFlight = ts;
     }
 
     @Override
-    public void setAnomalyTimeSeries(TimeSeries ts) {
+    public void setAnomalyTimeSeries(TimeSeries ts)
+    {
         this.anomalyFlight = ts;
     }
 
     @Override
-    public void setProperties(String path) {
+    public void setProperties(String path)
+    {
         XMLDecoder d = null;
         try {
-            d = new XMLDecoder(
-                    new BufferedInputStream(
-                            new FileInputStream(path)));
+            d = new XMLDecoder(new BufferedInputStream(new FileInputStream(path)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             setChanged();
@@ -77,7 +79,7 @@ public class FGModel extends Observable implements Model{
         try {
             e = new XMLEncoder(
                     new BufferedOutputStream(
-                            new FileOutputStream("./resources/properties.xml")));
+                            new FileOutputStream("./Sources/properties.xml")));
             e.writeObject(appProperties);
 
         } catch (FileNotFoundException fileNotFoundException) {
@@ -88,7 +90,8 @@ public class FGModel extends Observable implements Model{
 
 
     @Override
-    public void setTimeStep(IntegerProperty timeStep) {
+    public void setTimeStep(IntegerProperty timeStep)
+    {
         this.timeStep = timeStep;
         timeStep.addListener((o,ov,nv)->{
             fgp.send(anomalyFlight.getRow(nv.intValue()));
@@ -110,14 +113,14 @@ public class FGModel extends Observable implements Model{
             notifyObservers("FailedToLoadClass");
         }
 
-        // load class directory
         className = "model" + "." + file.getName().substring(0,file.getName().indexOf("."));
         URL[] url = new URL[1];
-        // change this path to your local one
-        try {
+        try
+        {
             url[0] = new URL("file://" + file.getParent() + "/");
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
+        }
+        catch (MalformedURLException e)
+        {
             e.printStackTrace();
         }
         URLClassLoader urlClassLoader = new URLClassLoader(url);
@@ -140,20 +143,22 @@ public class FGModel extends Observable implements Model{
             notifyObservers("FailedToLoadClass");
             return;
         }
-        // create an Algorithms instance
-        if (detectAlgo instanceof LinearRegressionAnomalyDetector) {
+        if (detectAlgo instanceof LinearRegressionAnomalyDetector)
+        {
             anomalyDetector = (LinearRegressionAnomalyDetector) detectAlgo;
             ((LinearRegressionAnomalyDetector) detectAlgo).learnNormal(regFlight);
             ((LinearRegressionAnomalyDetector) detectAlgo).detect(anomalyFlight);
         }
 
-        else if (detectAlgo instanceof HybridAnomalyDetector) {
+        else if (detectAlgo instanceof HybridAnomalyDetector)
+        {
             anomalyDetector = (HybridAnomalyDetector) detectAlgo;
             ((HybridAnomalyDetector) detectAlgo).learnNormal(regFlight);
             ((HybridAnomalyDetector) detectAlgo).detect(anomalyFlight);
         }
 
-        else if (detectAlgo instanceof ZscoreAnomalyDetector) {
+        else if (detectAlgo instanceof ZscoreAnomalyDetector)
+        {
             anomalyDetector = (ZscoreAnomalyDetector) detectAlgo;
             ((ZscoreAnomalyDetector) detectAlgo).learnNormal(regFlight);
             ((ZscoreAnomalyDetector) detectAlgo).detect(anomalyFlight);
@@ -164,7 +169,8 @@ public class FGModel extends Observable implements Model{
     }
 
     @Override
-    public void close() {
+    public void close()
+    {
         if(t!=null){
             t.cancel();
             fgp.close();
@@ -172,19 +178,22 @@ public class FGModel extends Observable implements Model{
     }
 
     @Override
-    public Painter getPainter() {
+    public Painter getPainter()
+    {
         return anomalyDetector.getPainter();
     }
 
     @Override
-    public void play() {
+    public void play()
+    {
         if(t==null){
             t= new Timer();
             setPlaySpeed();
             t.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    if(timeStep.get()< anomalyFlight.getRowSize()-1) {
+                    if(timeStep.get()< anomalyFlight.getRowSize()-1)
+                    {
                         timeStep.set(timeStep.get() + 1);
                     }
                     else if(timeStep.get()== anomalyFlight.getRowSize()-1){
@@ -197,13 +206,15 @@ public class FGModel extends Observable implements Model{
     }
 
     @Override
-    public void skipToStart() {
+    public void skipToStart()
+    {
         stop();
         play();
     }
 
     @Override
-    public void skipToEnd() {
+    public void skipToEnd()
+    {
         if(t!=null){
             t.cancel();
             t=null;
@@ -295,7 +306,8 @@ public class FGModel extends Observable implements Model{
     }
 
     @Override
-    public String uploadCsv(String nv) {
+    public String uploadCsv(String nv)
+    {
         if(nv.equals("")){
             return "";
         }
@@ -319,7 +331,6 @@ public class FGModel extends Observable implements Model{
         String line = scanner.nextLine();
         String[] features= line.split(",");
 
-        //This set checks whether the csv has 2-columns or more with the same name
         HashSet<String> tempSet = new HashSet<>();
 
         for(String feature: features){

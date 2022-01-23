@@ -40,7 +40,7 @@ public class MainWindowController implements Observer {
     public void loadProperties(){
         FileChooser fc = new FileChooser();
         fc.setTitle("Load Project Properties");
-        fc.setInitialDirectory(new File("./resources"));
+        fc.setInitialDirectory(new File("./Sources"));
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
                 "XML Files (*.xml)", "*.xml");
         fc.getExtensionFilters().add(extensionFilter);

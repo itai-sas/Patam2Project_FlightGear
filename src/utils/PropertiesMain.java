@@ -14,7 +14,7 @@ public class PropertiesMain
         XMLDecoder d = null;
         try
         {
-            d = new XMLDecoder(new BufferedInputStream(new FileInputStream("./resources/properties.xml")));
+            d = new XMLDecoder(new BufferedInputStream(new FileInputStream("./Sources/properties.xml")));
         }
         catch (FileNotFoundException e)
         {

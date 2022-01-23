@@ -2,7 +2,8 @@
 
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.JoystickController">
+<?import views.joystick.SpaceXJoystick?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.joystick.JoystickController">
    <children>
       <Slider fx:id="vertical" layoutX="7.0" orientation="VERTICAL" prefHeight="182.0" prefWidth="14.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="10.0" />
       <Slider fx:id="horizontal" layoutX="17.0" layoutY="193.0" prefHeight="14.0" prefWidth="382.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="193.0" />

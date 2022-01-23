@@ -33,13 +33,15 @@ public class ViewController implements Initializable
         rightGraph.setCreateSymbols(false);
     }
 
-    public void display(ObservableList<Float> leftListItem,ObservableList<Float> rightListItem) {
+    public void display(ObservableList<Float> leftListItem,ObservableList<Float> rightListItem)
+    {
        leftGraph.getData().clear();
        leftSeries.getData().clear();
        rightGraph.getData().clear();
        rightSeries.getData().clear();
 
-        for(int i=0;i<leftListItem.size();i++){
+        for(int i=0;i<leftListItem.size();i++)
+        {
             leftSeries.getData().add(new XYChart.Data<>(getTimeByIndex(i),leftListItem.get(i)));
             rightSeries.getData().add(new XYChart.Data<>(getTimeByIndex(i),rightListItem.get(i)));
         }
@@ -48,15 +50,19 @@ public class ViewController implements Initializable
         rightGraph.getData().add(rightSeries);
     }
 
-    private String getTimeByIndex(int index){
+    private String getTimeByIndex(int index)
+    {
         int timeInSeconds = index/10;
         return Calculate.getTimeString(timeInSeconds);
     }
 
-    public void updateDisplay(ObservableList<Float> leftListItem, ObservableList<Float> rightListItem, int ov) {
-        if(list.getSelectionModel().getSelectedItem()!=null){
+    public void updateDisplay(ObservableList<Float> leftListItem, ObservableList<Float> rightListItem, int ov)
+    {
+        if(list.getSelectionModel().getSelectedItem()!=null)
+        {
             int j = ov;
-            for(int i=0;i<leftListItem.size();i++,j++){
+            for(int i=0;i<leftListItem.size();i++,j++)
+            {
                 leftSeries.getData().add(new XYChart.Data<>(getTimeByIndex(j),leftListItem.get(i)));
                 rightSeries.getData().add(new XYChart.Data<>(getTimeByIndex(j),rightListItem.get(i)));
             }

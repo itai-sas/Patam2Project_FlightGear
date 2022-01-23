@@ -53,7 +53,7 @@ public class UserController implements Initializable
     {
         FileChooser fc = new FileChooser();
         fc.setTitle("Load Flight CSV File");
-        fc.setInitialDirectory(new File("./resources"));
+        fc.setInitialDirectory(new File("./Sources"));
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
                 "CSV Files (*.csv)", "*.csv");
         fc.getExtensionFilters().add(extensionFilter);

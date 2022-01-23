@@ -1,21 +1,21 @@
 package views;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.FGModel;
 import viewmodel.ViewModel;
 
-public class Main extends Application {
+public class Main extends Application
+{
 
 	private static Stage guiStage;
 
 	@Override
-	public void start(Stage primaryStage) throws Exception{
+	public void start(Stage primaryStage) throws Exception
+	{
 		guiStage = primaryStage;
 		FGModel model = new FGModel();
 		ViewModel vm = new ViewModel(model);
@@ -37,36 +37,46 @@ public class Main extends Application {
 	}
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		launch(args);
 	}
 
-	public static Stage getGuiStage() {
+	public static Stage getGuiStage()
+	{
 		return guiStage;
 	}
 
-	public void setWindowSize(Stage stage, int maxW, int minW, int maxH, int minH){
-		stage.widthProperty().addListener((o, oldValue, newValue)->{
-			if(newValue.intValue() < minW) {
+	public void setWindowSize(Stage stage, int maxW, int minW, int maxH, int minH)
+	{
+
+		stage.widthProperty().addListener((o, oldValue, newValue)->
+		{
+			if(newValue.intValue() < minW)
+			{
 				stage.setResizable(false);
 				stage.setWidth(minW);
 				stage.setResizable(true);
 			}
-			if(newValue.intValue() > maxW) {
+			if(newValue.intValue() > maxW)
+			{
 				stage.setResizable(false);
 				stage.setWidth(maxW);
 				stage.setResizable(true);
 			}
 		});
 
-		stage.heightProperty().addListener((o,oldValue,newValue)->{
-			if(newValue.intValue()<minH){
+		stage.heightProperty().addListener((o,oldValue,newValue)->
+		{
+			if(newValue.intValue()<minH)
+			{
 				stage.setResizable(false);
 				stage.setHeight(minH);
 				stage.setResizable(true);
 			}
 
-			if(newValue.intValue() > maxH) {
+			if(newValue.intValue() > maxH)
+			{
 				stage.setResizable(false);
 				stage.setHeight(maxH);
 				stage.setResizable(true);

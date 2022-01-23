@@ -24,10 +24,11 @@ public class Properties implements Serializable
         {
             e = new XMLEncoder(
                     new BufferedOutputStream(
-                            new FileOutputStream("./resources/properties.xml")));
+                            new FileOutputStream("./Sources/properties.xml")));
             e.writeObject(this);
 
-        } catch (FileNotFoundException fileNotFoundException) {
+        } catch (FileNotFoundException fileNotFoundException)
+        {
             fileNotFoundException.printStackTrace();
         }
         e.close();
@@ -75,13 +76,14 @@ public class Properties implements Serializable
     public String getRegularFlightCSV()
     { return regularFlightCSV; }
 
-    public void setRegularFlightCSV(String regularFlightCSV) { this.regularFlightCSV = regularFlightCSV; }
+    public void setRegularFlightCSV(String regularFlightCSV)
+    { this.regularFlightCSV = regularFlightCSV; }
 
     public void setDefaultProperties(){
         ip="127.0.0.1";
         port=5400;
         hertzRate=10;
-        regularFlightCSV="./resources/reg_flight.csv";
+        regularFlightCSV="./Sources/reg_flight.csv";
         //Gps
         map.put("latitude", new Properties.FeatureProperties("latitude-deg",14, (float) -90, 90F));
         map.put("longitude", new Properties.FeatureProperties("longitude-deg",15, (float) -180, 180F));
@@ -174,7 +176,8 @@ public class Properties implements Serializable
 
         public FeatureProperties() { }
 
-        public FeatureProperties(String name, Integer index, Float minVal, Float maxVal) {
+        public FeatureProperties(String name, Integer index, Float minVal, Float maxVal)
+        {
             this.colChosenName = name;
             this.index = index;
             this.minVal = minVal;

@@ -10,23 +10,28 @@ public class View extends StackPane
 {
 
     public final ViewController controller;
-    public View() {
+    public View()
+    {
         super();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Display.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("View.fxml"));
             StackPane displayer=null;
-            try {
+            try
+            {
                 displayer = loader.load();
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 e.printStackTrace();
             }
 
-        if(displayer!=null){
+        if(displayer!=null)
+        {
             controller = loader.getController();
             displayer.setAlignment(Pos.CENTER);
             this.getChildren().add(displayer);
         }
-        else{
+        else
+        {
             controller = null;
         }
     }
