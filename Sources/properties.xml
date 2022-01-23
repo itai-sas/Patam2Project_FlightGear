@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="16.0.1" class="java.beans.XMLDecoder">
+ <object class="other.Properties" id="Properties0">
+  <void property="hertzRate">
+   <int>10</int>
+  </void>
+  <void property="ip">
+   <string>127.0.0.1</string>
+  </void>
+  <void property="map">
+   <void method="put">
+    <string>altitude</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>altimeter_indicated-altitude-ft</string>
+     </void>
+     <void property="index">
+      <int>25</int>
+     </void>
+     <void property="maxVal">
+      <float>3.4028235E38</float>
+     </void>
+     <void property="minVal">
+      <float>-1412.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>throttle</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>throttle</string>
+     </void>
+     <void property="index">
+      <int>6</int>
+     </void>
+     <void property="maxVal">
+      <float>1.0</float>
+     </void>
+     <void property="minVal">
+      <float>0.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>heading</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>indicated-heading-deg</string>
+     </void>
+     <void property="index">
+      <int>36</int>
+     </void>
+     <void property="maxVal">
+      <float>359.0</float>
+     </void>
+     <void property="minVal">
+      <float>0.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>latitude</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>latitude-deg</string>
+     </void>
+     <void property="index">
+      <int>14</int>
+     </void>
+     <void property="maxVal">
+      <float>90.0</float>
+     </void>
+     <void property="minVal">
+      <float>-90.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>roll</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>attitude-indicator_indicated-roll-deg</string>
+     </void>
+     <void property="index">
+      <int>28</int>
+     </void>
+     <void property="maxVal">
+      <float>90.0</float>
+     </void>
+     <void property="minVal">
+      <float>-90.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>elevators</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>elevator</string>
+     </void>
+     <void property="index">
+      <int>1</int>
+     </void>
+     <void property="maxVal">
+      <float>1.0</float>
+     </void>
+     <void property="minVal">
+      <float>-1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>rudder</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>rudder</string>
+     </void>
+     <void property="index">
+      <int>2</int>
+     </void>
+     <void property="maxVal">
+      <float>1.0</float>
+     </void>
+     <void property="minVal">
+      <float>-1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>aileron</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>aileron</string>
+     </void>
+     <void property="index">
+      <int>0</int>
+     </void>
+     <void property="maxVal">
+      <float>1.0</float>
+     </void>
+     <void property="minVal">
+      <float>-1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>pitch</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>attitude-indicator_indicated-pitch-deg</string>
+     </void>
+     <void property="index">
+      <int>27</int>
+     </void>
+     <void property="maxVal">
+      <float>90.0</float>
+     </void>
+     <void property="minVal">
+      <float>-90.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>airspeed</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>airspeed-indicator_indicated-speed-kt</string>
+     </void>
+     <void property="index">
+      <int>24</int>
+     </void>
+     <void property="maxVal">
+      <float>3.4028235E38</float>
+     </void>
+     <void property="minVal">
+      <float>-1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>yaw</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>side-slip-deg</string>
+     </void>
+     <void property="index">
+      <int>20</int>
+     </void>
+     <void property="maxVal">
+      <float>90.0</float>
+     </void>
+     <void property="minVal">
+      <float>-90.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>longitude</string>
+    <object class="other.Properties$FeatureProperties">
+     <void property="colChosenName">
+      <string>longitude-deg</string>
+     </void>
+     <void property="index">
+      <int>15</int>
+     </void>
+     <void property="maxVal">
+      <float>180.0</float>
+     </void>
+     <void property="minVal">
+      <float>-180.0</float>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="port">
+   <int>5400</int>
+  </void>
+  <void property="regularFlightCSV">
+   <string>./resources/reg_flight.csv</string>
+  </void>
+ </object>
+</java>
